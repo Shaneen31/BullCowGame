@@ -7,12 +7,17 @@ using namespace std;
 void PrintIntro();
 void PlayGame();
 string GetGuess();
+bool AskToPlayagain();
 
 // Game Entry Point
 int main()
 {
 	PrintIntro();
-	PlayGame();
+	do
+	{
+		PlayGame();
+	}
+	while (AskToPlayagain());
 	return 0;
 }
 
@@ -45,4 +50,16 @@ string GetGuess()
 	getline(cin, Guess);
 	cout << endl;
 	return Guess;
+}
+
+bool AskToPlayagain()
+{
+	string Response = "";
+	cout << "Do you want to play again? ";
+	getline(cin, Response);
+	if ( Response[0] == 'y' || Response[0] == 'Y' )
+	{
+		return true;
+	}
+	return false;
 }
