@@ -31,9 +31,8 @@ int main()
 // Game Methods
 void PrintIntro()
 {
-	constexpr int32 WordLenght = 5;
 	std::cout << "Welcome to Bulls and Cows\n";
-	std::cout << "Can you guess the " << WordLenght << " letters word I'm thinking of?\n";
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLenght() << " letters word I'm thinking of?\n";
 	std::cout << std::endl;
 	return;
 }
@@ -45,7 +44,10 @@ void PlayGame()
 	for (int32 Try = 0; Try < MaxTries; Try++)
 	{
 		FText Guess = GetGuess();
-		std::cout << "Your guess was: " << Guess << std::endl;
+		
+		FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+		std::cout << "Bulls = " << BullCowCount.Bulls;
+		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;;
 		std::cout << std::endl;
 	}
 }
@@ -56,7 +58,6 @@ FText GetGuess()
 	int32 CurrentTry = BCGame.GetCurrentTry();
 	std::cout << "Try " << CurrentTry << " - Enter your guess: ";
 	getline(std::cin, Guess);
-	std::cout << std::endl;
 	return Guess;
 }
 
