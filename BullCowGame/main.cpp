@@ -54,7 +54,7 @@ FText GetValidGuess()
 		switch (Status)
 		{
 		case EGuessStatus::Wrong_Lenght:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLenght() << " word.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLenght() << " letters long word.\n";
 			break;
 
 		case EGuessStatus::Not_Lower_Case:
@@ -97,5 +97,16 @@ void PlayGame()
 		std::cout << "Bulls = " << BullCowCount.Bulls;
 		std::cout << ". Cows = " << BullCowCount.Cows << std::endl;;
 		std::cout << std::endl;
+	}
+
+	if (BCGame.IsGameWon())
+	{
+		std::cout << "Well done, you won!\n";
+		return;
+	}
+	else
+	{
+		std::cout << "Bad luck, you'll do better next time!\n";
+		return;
 	}
 }
