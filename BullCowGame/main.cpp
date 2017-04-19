@@ -89,7 +89,7 @@ void PlayGame()
 {
 	int32 MaxTries = BCGame.GetMaxTries();
 
-	for (int32 Try = 0; Try < MaxTries; Try++)
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() < MaxTries)
 	{
 		FText Guess = GetValidGuess();
 

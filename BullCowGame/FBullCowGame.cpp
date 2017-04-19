@@ -11,11 +11,7 @@ int32 FBullCowGame::GetCurrentTry() const { return CurrentTry; }
 
 int32 FBullCowGame::GetHiddenWordLenght() const { return HiddenWord.length(); }
 
-// TODO Check if the game is won
-bool FBullCowGame::IsGameWon() const 
-{
-	return false;
-}
+bool FBullCowGame::IsGameWon() const { return bIsWon; }
 
 // TODO Validate player's Guess
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -40,6 +36,7 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 
 void FBullCowGame::reset()
 {
+	bIsWon = false;
 	MaxTries = 8;
 	CurrentTry = 1;
 	HiddenWord = "planet";
@@ -71,6 +68,10 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 				{
 				BullCowCount.Cows++;
 				}
+			}
+			if (BullCowCount.Bulls == GetHiddenWordLenght())
+			{
+				bIsWon = true;
 			}
 		}
 	}

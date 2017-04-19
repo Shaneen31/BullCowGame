@@ -37,4 +37,5 @@ private:
 	int32 CurrentTry ;
 	int32 MaxTries;
 	FString HiddenWord;
+	bool bIsWon;
 };
