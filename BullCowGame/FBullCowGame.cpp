@@ -1,21 +1,26 @@
+#pragma once
+
 #include "FBullCowGame.h"
 #include <map>
 #define TMap std::map
 
-FBullCowGame::FBullCowGame()
-{
-	reset();
-}
+// Contrutor
+FBullCowGame::FBullCowGame() { reset(); }
 
-int32 FBullCowGame::GetMaxTries() const { return MaxTries; }
-
+// Getters
 int32 FBullCowGame::GetCurrentTry() const { return CurrentTry; }
 
 int32 FBullCowGame::GetHiddenWordLenght() const { return HiddenWord.length(); }
 
 bool FBullCowGame::IsGameWon() const { return bIsWon; }
 
-// TODO Validate player's Guess
+int32 FBullCowGame::GetMaxTries() const
+{
+	TMap <int32, int32> WordLenghtToMaxTries{ { 3, 4 }, { 4, 5 }, { 5, 5 }, { 6 , 7 }, { 7 , 8 }, { 8, 9 }, { 9 , 10 }, { 10 , 11 }, { 12 , 13 }, { 13 , 14 }, { 14 , 15 }, { 16 , 17 }, { 17 , 18 } };
+	return WordLenghtToMaxTries[GetHiddenWordLenght()];
+}
+
+// Validate player's Guess
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
 	if (Guess.length() != GetHiddenWordLenght())
@@ -39,7 +44,6 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 void FBullCowGame::reset()
 {
 	bIsWon = false;
-	MaxTries = 8;
 	CurrentTry = 1;
 	HiddenWord = "planet";
 	return;
@@ -48,35 +52,23 @@ void FBullCowGame::reset()
 // Receive Validated Guess then Count bulls and cows, and increase Try count.
 FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 {
-	// Declare local variables
 	FBullCowCount BullCowCount;
 	int32 HiddenWordLenght = HiddenWord.length();
 
-	// Increment Try Count
 	CurrentTry++;
 
-	//Loop through guess's letters and compare with hidden word
 	for (int32 i = 0; i < HiddenWordLenght; i++)
 	{
 		for (int32 j = 0; j < HiddenWordLenght; j++)
 		{
 			if (Guess[j]  == HiddenWord[i])
 			{
-				if (i == j)
-				{
-					BullCowCount.Bulls++;
-				}
-				else
-				{
-				BullCowCount.Cows++;
-				}
-			}
-			if (BullCowCount.Bulls == GetHiddenWordLenght())
-			{
-				bIsWon = true;
+				if (i == j) { BullCowCount.Bulls++; }
+				else { BullCowCount.Cows++; }
 			}
 		}
 	}
+	if (BullCowCount.Bulls == GetHiddenWordLenght()) { bIsWon = true; }
 	return BullCowCount;
 }
 
