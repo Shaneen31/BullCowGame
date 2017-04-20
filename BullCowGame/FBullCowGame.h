@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <fstream>
+#include  <iostream>
 
 using FString = std::string;
 using int32 = int;
@@ -38,8 +40,11 @@ private:
 	int32 CurrentTry ;
 	int32 MaxTries;
 	FString HiddenWord;
+	FString Dictionary[100];
 	bool bIsWon;
 
+	void LoadDictionary();
+	FString SelectHiddenWord();
 	bool isIsogram(FString Guess) const;
 	bool IsLowercase(FString Guess) const;
 };

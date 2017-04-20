@@ -2,10 +2,16 @@
 
 #include "FBullCowGame.h"
 #include <map>
+#include <fstream>
+#include <ctime>
 #define TMap std::map
 
 // Contrutor
-FBullCowGame::FBullCowGame() { reset(); }
+FBullCowGame::FBullCowGame()
+{
+	LoadDictionary();
+	reset();
+}
 
 // Getters
 int32 FBullCowGame::GetCurrentTry() const { return CurrentTry; }
@@ -45,7 +51,7 @@ void FBullCowGame::reset()
 {
 	bIsWon = false;
 	CurrentTry = 1;
-	HiddenWord = "planet";
+	HiddenWord = SelectHiddenWord();
 	return;
 }
 
@@ -70,6 +76,30 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	}
 	if (BullCowCount.Bulls == GetHiddenWordLenght()) { bIsWon = true; }
 	return BullCowCount;
+}
+
+// Load isogram Dictionary
+void FBullCowGame::LoadDictionary()
+{
+	FString Word;
+	int32 i = 0;
+
+	std::ifstream dict;
+	dict.open("dictionary.txt");
+	while (!dict.eof())
+	{
+		getline(dict, Word);
+		Dictionary[i] = Word;
+		i++;
+	}
+}
+
+// Select a randaom word from dictionary
+FString FBullCowGame::SelectHiddenWord()
+{
+	srand(time(NULL));
+	int32 RandInt = rand() % 99;
+	return Dictionary[RandInt];
 }
 
 bool FBullCowGame::isIsogram(FString Guess) const
