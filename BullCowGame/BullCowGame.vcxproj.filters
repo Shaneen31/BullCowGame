@@ -26,5 +26,16 @@
     <ClInclude Include="FBullCowGame.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BullCowGame.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dictionary.txt" />
   </ItemGroup>
 </Project>

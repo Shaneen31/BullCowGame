@@ -89,6 +89,7 @@ bool AskToPlayagain()
 	getline(std::cin, Response);
 	if ( Response[0] == 'y' || Response[0] == 'Y' )
 	{
+		BCGame.reset();
 		return true;
 	}
 	return false;
